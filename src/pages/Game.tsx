@@ -1,0 +1,248 @@
+import { useState, useEffect, useCallback } from "react";
+import { useNavigate } from "react-router-dom";
+import { resumeData } from "@/data/resumeData";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { ArrowLeft, Trophy } from "lucide-react";
+import gameBg from "@/assets/game-bg.png";
+import character from "@/assets/character.png";
+
+interface Position {
+  x: number;
+  y: number;
+}
+
+interface Zone {
+  id: string;
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+  title: string;
+  content: string[];
+}
+
+const Game = () => {
+  const navigate = useNavigate();
+  const [playerPos, setPlayerPos] = useState<Position>({ x: 50, y: 50 });
+  const [currentZone, setCurrentZone] = useState<string | null>(null);
+  const [visitedZones, setVisitedZones] = useState<Set<string>>(new Set());
+  const [gameCompleted, setGameCompleted] = useState(false);
+
+  // Define zones for different resume sections
+  const zones: Zone[] = [
+    {
+      id: "skills",
+      x: 20,
+      y: 30,
+      width: 20,
+      height: 15,
+      title: "Skills & Technologies",
+      content: resumeData.mainSkills,
+    },
+    {
+      id: "experience",
+      x: 60,
+      y: 30,
+      width: 20,
+      height: 15,
+      title: "Work Experience",
+      content: resumeData.experiences.slice(0, 3).map(exp => 
+        `${exp.role} at ${exp.company} (${exp.period})`
+      ),
+    },
+    {
+      id: "certifications",
+      x: 20,
+      y: 70,
+      width: 20,
+      height: 15,
+      title: "Certifications",
+      content: resumeData.certifications,
+    },
+    {
+      id: "complete",
+      x: 60,
+      y: 70,
+      width: 20,
+      height: 15,
+      title: "🎉 Tour Complete!",
+      content: ["You've explored my entire portfolio!", "Thank you for visiting!"],
+    },
+  ];
+
+  // Check if player is in a zone
+  const checkZone = useCallback((pos: Position) => {
+    for (const zone of zones) {
+      if (
+        pos.x >= zone.x &&
+        pos.x <= zone.x + zone.width &&
+        pos.y >= zone.y &&
+        pos.y <= zone.y + zone.height
+      ) {
+        setCurrentZone(zone.id);
+        setVisitedZones(prev => new Set([...prev, zone.id]));
+        
+        // Check if all zones except complete are visited
+        if (zone.id === "complete" && visitedZones.size >= zones.length - 1) {
+          setGameCompleted(true);
+        }
+        return;
+      }
+    }
+    setCurrentZone(null);
+  }, [visitedZones, zones]);
+
+  // Handle keyboard input
+  useEffect(() => {
+    const handleKeyPress = (e: KeyboardEvent) => {
+      const speed = 3;
+      setPlayerPos(prev => {
+        let newPos = { ...prev };
+        
+        switch (e.key) {
+          case "ArrowUp":
+          case "w":
+          case "W":
+            newPos.y = Math.max(5, prev.y - speed);
+            break;
+          case "ArrowDown":
+          case "s":
+          case "S":
+            newPos.y = Math.min(90, prev.y + speed);
+            break;
+          case "ArrowLeft":
+          case "a":
+          case "A":
+            newPos.x = Math.max(5, prev.x - speed);
+            break;
+          case "ArrowRight":
+          case "d":
+          case "D":
+            newPos.x = Math.min(90, prev.x + speed);
+            break;
+        }
+        
+        checkZone(newPos);
+        return newPos;
+      });
+    };
+
+    window.addEventListener("keydown", handleKeyPress);
+    return () => window.removeEventListener("keydown", handleKeyPress);
+  }, [checkZone]);
+
+  const currentZoneData = zones.find(z => z.id === currentZone);
+
+  return (
+    <div className="relative min-h-screen w-full overflow-hidden bg-background scanlines">
+      {/* Game Background */}
+      <div 
+        className="absolute inset-0 bg-cover bg-center opacity-40"
+        style={{ backgroundImage: `url(${gameBg})` }}
+      />
+
+      {/* Back Button */}
+      <Button
+        onClick={() => navigate("/")}
+        className="absolute top-4 left-4 z-20 bg-card border-2 border-primary glow-purple"
+        size="sm"
+      >
+        <ArrowLeft className="mr-2 h-4 w-4" />
+        Menu
+      </Button>
+
+      {/* Progress */}
+      <div className="absolute top-4 right-4 z-20 bg-card border-2 border-secondary px-4 py-2 glow-cyan">
+        <div className="flex items-center gap-2 text-xs">
+          <Trophy className="h-4 w-4 text-accent" />
+          <span>{visitedZones.size}/{zones.length} Zones</span>
+        </div>
+      </div>
+
+      {/* Game Area */}
+      <div className="relative h-screen w-full">
+        {/* Zones (invisible markers) */}
+        {zones.map(zone => (
+          <div
+            key={zone.id}
+            className="absolute border-2 border-dashed border-primary/30 transition-all"
+            style={{
+              left: `${zone.x}%`,
+              top: `${zone.y}%`,
+              width: `${zone.width}%`,
+              height: `${zone.height}%`,
+              backgroundColor: visitedZones.has(zone.id) 
+                ? "hsl(var(--primary) / 0.1)" 
+                : "hsl(var(--muted) / 0.05)",
+            }}
+          >
+            <div className="flex items-center justify-center h-full">
+              <span className="text-xs text-muted-foreground">{zone.title}</span>
+            </div>
+          </div>
+        ))}
+
+        {/* Player Character */}
+        <div
+          className="absolute transition-all duration-100 z-10"
+          style={{
+            left: `${playerPos.x}%`,
+            top: `${playerPos.y}%`,
+            transform: "translate(-50%, -50%)",
+          }}
+        >
+          <img 
+            src={character} 
+            alt="Player" 
+            className="w-16 h-16 glow-purple"
+          />
+        </div>
+      </div>
+
+      {/* Info Panel */}
+      {currentZoneData && (
+        <Card className="fixed bottom-4 left-1/2 -translate-x-1/2 w-11/12 max-w-2xl bg-card border-4 border-primary p-6 glow-purple z-20 animate-fade-in">
+          <h2 className="text-xl mb-4 text-primary">{currentZoneData.title}</h2>
+          <div className="space-y-2">
+            {currentZoneData.content.map((item, index) => (
+              <p key={index} className="text-xs text-foreground">
+                • {item}
+              </p>
+            ))}
+          </div>
+        </Card>
+      )}
+
+      {/* Completion Message */}
+      {gameCompleted && (
+        <div className="fixed inset-0 bg-background/90 flex items-center justify-center z-30 animate-fade-in">
+          <Card className="max-w-md bg-card border-4 border-accent p-8 text-center glow-purple">
+            <Trophy className="h-16 w-16 text-accent mx-auto mb-4 animate-bounce" />
+            <h2 className="text-2xl mb-4 text-accent">Quest Complete!</h2>
+            <p className="text-sm mb-6 text-foreground">
+              You've successfully explored my entire portfolio. Thank you for taking the time!
+            </p>
+            <div className="space-y-2 text-xs text-muted-foreground">
+              <p>Contact: {resumeData.email}</p>
+              <p>LinkedIn: {resumeData.linkedin}</p>
+            </div>
+            <Button
+              onClick={() => navigate("/")}
+              className="mt-6 bg-accent text-accent-foreground hover:bg-accent/90"
+            >
+              Back to Menu
+            </Button>
+          </Card>
+        </div>
+      )}
+
+      {/* Instructions */}
+      <div className="fixed bottom-4 left-4 bg-card border-2 border-secondary px-4 py-2 text-xs glow-cyan z-20">
+        <p>Use Arrow Keys or WASD to move</p>
+      </div>
+    </div>
+  );
+};
+
+export default Game;
