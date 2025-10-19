@@ -56,9 +56,9 @@ const Game = () => {
         width: 20,
         height: 15,
         title: "Work Experience",
-        content: resumeData.experiences
-          .slice(0, 3)
-          .map((exp) => `${exp.role} at ${exp.company} (${exp.period})`),
+        content: resumeData.experiences.map(
+          (exp) => `${exp.role} at ${exp.company} (${exp.period})`
+        ),
       },
       {
         id: "certifications",
@@ -421,6 +421,7 @@ const Game = () => {
             <div className="space-y-2 text-xs text-muted-foreground">
               <p>Contact: {resumeData.email}</p>
               <p>LinkedIn: {resumeData.linkedin}</p>
+              <p>GitHub: {resumeData.github}</p>
             </div>
             <Button
               onClick={() => navigate("/")}

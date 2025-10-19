@@ -9,14 +9,14 @@ const MainMenu = () => {
   return (
     <div className="relative min-h-screen w-full overflow-hidden scanlines">
       {/* Background */}
-      <div 
+      <div
         className="absolute inset-0 bg-cover bg-center"
-        style={{ 
+        style={{
           backgroundImage: `url(${menuBg})`,
-          filter: "brightness(0.7)"
+          filter: "brightness(0.7)",
         }}
       />
-      
+
       {/* Content */}
       <div className="relative z-10 flex min-h-screen flex-col items-center justify-center gap-8 p-8">
         {/* Title */}
@@ -30,7 +30,10 @@ const MainMenu = () => {
         </div>
 
         {/* Skills */}
-        <div className="max-w-2xl animate-fade-in" style={{ animationDelay: "0.2s" }}>
+        <div
+          className="max-w-2xl animate-fade-in"
+          style={{ animationDelay: "0.2s" }}
+        >
           <h2 className="mb-4 text-center text-xl text-accent">Main Skills</h2>
           <div className="flex flex-wrap justify-center gap-3">
             {resumeData.mainSkills.slice(0, 6).map((skill, index) => (
@@ -55,9 +58,13 @@ const MainMenu = () => {
         </Button>
 
         {/* Contact Info */}
-        <div className="mt-8 text-center text-sm text-muted-foreground animate-fade-in" style={{ animationDelay: "0.8s" }}>
+        <div
+          className="mt-8 text-center text-sm text-muted-foreground animate-fade-in"
+          style={{ animationDelay: "0.8s" }}
+        >
           <p>{resumeData.email}</p>
           <p>{resumeData.linkedin}</p>
+          <p>{resumeData.github}</p>
         </div>
       </div>
     </div>
