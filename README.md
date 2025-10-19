@@ -180,18 +180,6 @@ The character uses a sprite sheet with:
 - **GitHub Pages**: Use GitHub Actions for automated deployment
 - **Any Static Host**: Build with `npm run build` and upload `dist` folder
 
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
-
-## 📄 License
-
-This project is open source and available under the [MIT License](LICENSE).
-
 ## 👨‍💻 Author
 
 **Iago Martins**
@@ -200,7 +188,6 @@ This project is open source and available under the [MIT License](LICENSE).
 - Location: Belo Horizonte, Minas Gerais, Brasil
 - Email: iagomartinsgamedesign@gmail.com
 - LinkedIn: [linkedin.com/in/iaamartins](https://linkedin.com/in/iaamartins)
-- GitHub: [github.com/iaamartins](https://github.com/iaamartins)
 
 ## 🙏 Acknowledgments
 
