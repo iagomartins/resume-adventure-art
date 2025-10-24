@@ -22,12 +22,21 @@ interface Zone {
   content: string[];
 }
 
+interface Collider {
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+  type: "wall" | "desk" | "chair" | "computer" | "bush" | "door";
+}
+
 const spriteWidth = 146;
 const spriteHeight = 313;
 
 const Game = () => {
   const navigate = useNavigate();
-  const [playerPos, setPlayerPos] = useState<Position>({ x: 50, y: 50 });
+  const [playerPos, setPlayerPos] = useState<Position>({ x: 50, y: 50 }); // Start in center, safe area
+  const [showColliders, setShowColliders] = useState<boolean>(false);
   const [currentZone, setCurrentZone] = useState<string | null>(null);
   const [visitedZones, setVisitedZones] = useState<Set<string>>(new Set());
   const [gameCompleted, setGameCompleted] = useState(false);
@@ -36,6 +45,67 @@ const Game = () => {
   const [isMoving, setIsMoving] = useState<boolean>(false);
   const [spriteImage, setSpriteImage] = useState<HTMLImageElement | null>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
+
+  // Define colliders for furniture and walls (based on the blue line path)
+  const colliders: Collider[] = useMemo(
+    () => [
+      // Walls
+      { x: 0, y: 0, width: 100, height: 8, type: "wall" }, // Top wall
+      { x: 0, y: 0, width: 8, height: 100, type: "wall" }, // Left wall
+      { x: 92, y: 0, width: 8, height: 100, type: "wall" }, // Right wall
+
+      // Left side desks and furniture
+      { x: 8, y: 8, width: 15, height: 25, type: "desk" }, // Left wall desk section 1
+      { x: 8, y: 35, width: 15, height: 25, type: "desk" }, // Left wall desk section 2
+      { x: 8, y: 62, width: 15, height: 25, type: "desk" }, // Left wall desk section 3
+
+      // Right side desks and furniture
+      { x: 77, y: 8, width: 15, height: 25, type: "desk" }, // Right wall desk section 1
+      { x: 77, y: 35, width: 15, height: 25, type: "desk" }, // Right wall desk section 2
+      { x: 77, y: 62, width: 15, height: 25, type: "desk" }, // Right wall desk section 3
+
+      // Bottom desks
+      { x: 25, y: 70, width: 15, height: 15, type: "desk" }, // Bottom left desk
+      { x: 55, y: 70, width: 25, height: 15, type: "desk" }, // Bottom right desk
+
+      // Center door area desks (smaller, allowing passage)
+      { x: 25, y: 8, width: 15, height: 25, type: "desk" }, // Left side of door
+      { x: 55, y: 8, width: 20, height: 25, type: "desk" }, // Right side of door
+
+      // Office chairs
+      { x: 12, y: 20, width: 6, height: 8, type: "chair" }, // Left side chairs
+      { x: 12, y: 47, width: 6, height: 8, type: "chair" },
+      { x: 12, y: 74, width: 6, height: 8, type: "chair" },
+
+      { x: 82, y: 20, width: 6, height: 8, type: "chair" }, // Right side chairs
+      { x: 82, y: 47, width: 6, height: 8, type: "chair" },
+      { x: 82, y: 74, width: 6, height: 8, type: "chair" },
+
+      { x: 30, y: 80, width: 6, height: 8, type: "chair" }, // Bottom chairs
+      { x: 60, y: 80, width: 6, height: 8, type: "chair" },
+
+      // Computer equipment (smaller colliders for monitors/keyboards)
+      { x: 10, y: 12, width: 4, height: 3, type: "computer" }, // Left monitors
+      { x: 10, y: 39, width: 4, height: 3, type: "computer" },
+      { x: 10, y: 66, width: 4, height: 3, type: "computer" },
+
+      { x: 86, y: 12, width: 4, height: 3, type: "computer" }, // Right monitors
+      { x: 86, y: 39, width: 4, height: 3, type: "computer" },
+      { x: 86, y: 66, width: 4, height: 3, type: "computer" },
+
+      { x: 28, y: 60, width: 7, height: 15, type: "computer" }, // Bottom monitors
+      { x: 58, y: 60, width: 7, height: 15, type: "computer" },
+
+      // Bushes in corners
+      { x: 0, y: 85, width: 12, height: 15, type: "bush" }, // Bottom left bush
+      { x: 88, y: 85, width: 12, height: 15, type: "bush" }, // Bottom right bush
+
+      // Door area (allows passage but has small colliders on sides)
+      { x: 40, y: 0, width: 4, height: 8, type: "door" }, // Left door frame
+      { x: 56, y: 0, width: 4, height: 8, type: "door" }, // Right door frame
+    ],
+    []
+  );
 
   // Define zones for different resume sections
   const zones: Zone[] = useMemo(
@@ -63,7 +133,7 @@ const Game = () => {
       {
         id: "certifications",
         x: 20,
-        y: 70,
+        y: 55,
         width: 20,
         height: 15,
         title: "Certifications",
@@ -72,7 +142,7 @@ const Game = () => {
       {
         id: "complete",
         x: 60,
-        y: 70,
+        y: 55,
         width: 20,
         height: 15,
         title: "🎉 Tour Complete!",
@@ -83,6 +153,27 @@ const Game = () => {
       },
     ],
     []
+  );
+
+  // Check for collisions with colliders
+  const checkCollision = useCallback(
+    (pos: Position) => {
+      const playerSize = 1.5; // Player collision box size (percentage) - smaller for better movement
+
+      for (const collider of colliders) {
+        // Check if player position overlaps with any collider
+        if (
+          pos.x + playerSize > collider.x &&
+          pos.x - playerSize < collider.x + collider.width &&
+          pos.y + playerSize > collider.y &&
+          pos.y - playerSize < collider.y + collider.height
+        ) {
+          return true; // Collision detected
+        }
+      }
+      return false; // No collision
+    },
+    [colliders]
   );
 
   // Check if player is in a zone
@@ -154,48 +245,62 @@ const Game = () => {
       let moving = false;
 
       setPlayerPos((prev) => {
-        const newPos = { ...prev };
+        let newPos = { ...prev };
+        let tempPos = { ...prev };
 
         // Determine direction based on key combination
         if (keys.has("right") && keys.has("up")) {
           direction = "right-up"; // Row 3 (Third Quadrant)
-          newPos.x = Math.min(90, prev.x + speed);
-          newPos.y = Math.max(5, prev.y - speed);
+          tempPos = {
+            x: Math.min(90, prev.x + speed),
+            y: Math.max(5, prev.y - speed),
+          };
           moving = true;
         } else if (keys.has("right") && keys.has("down")) {
           direction = "right-down"; // Row 1 (Second Quadrant)
-          newPos.x = Math.min(90, prev.x + speed);
-          newPos.y = Math.min(90, prev.y + speed);
+          tempPos = {
+            x: Math.min(90, prev.x + speed),
+            y: Math.min(90, prev.y + speed),
+          };
           moving = true;
         } else if (keys.has("left") && keys.has("down")) {
           direction = "left-down"; // Row 0 (First Quadrant)
-          newPos.x = Math.max(5, prev.x - speed);
-          newPos.y = Math.min(90, prev.y + speed);
+          tempPos = {
+            x: Math.max(5, prev.x - speed),
+            y: Math.min(90, prev.y + speed),
+          };
           moving = true;
         } else if (keys.has("left") && keys.has("up")) {
           direction = "left-up"; // Row 2 (Fourth Quadrant)
-          newPos.x = Math.max(5, prev.x - speed);
-          newPos.y = Math.max(5, prev.y - speed);
+          tempPos = {
+            x: Math.max(5, prev.x - speed),
+            y: Math.max(5, prev.y - speed),
+          };
           moving = true;
         } else if (keys.has("right")) {
           direction = "right-down";
-          newPos.x = Math.min(90, prev.x + speed);
+          tempPos = { x: Math.min(90, prev.x + speed), y: prev.y };
           moving = true;
         } else if (keys.has("left")) {
           direction = "left-down";
-          newPos.x = Math.max(5, prev.x - speed);
+          tempPos = { x: Math.max(5, prev.x - speed), y: prev.y };
           moving = true;
         } else if (keys.has("up")) {
           direction = "left-up";
-          newPos.y = Math.max(5, prev.y - speed);
+          tempPos = { x: prev.x, y: Math.max(5, prev.y - speed) };
           moving = true;
         } else if (keys.has("down")) {
           direction = "right-down";
-          newPos.y = Math.min(90, prev.y + speed);
+          tempPos = { x: prev.x, y: Math.min(90, prev.y + speed) };
           moving = true;
         } else {
           direction = "idle";
           moving = false;
+        }
+
+        // Check for collisions before updating position
+        if (moving && !checkCollision(tempPos)) {
+          newPos = tempPos;
         }
 
         setCurrentDirection(direction);
@@ -211,7 +316,7 @@ const Game = () => {
       window.removeEventListener("keydown", handleKeyDown);
       window.removeEventListener("keyup", handleKeyUp);
     };
-  }, [checkZone]);
+  }, [checkZone, checkCollision]);
 
   // Load sprite image
   useEffect(() => {
@@ -344,8 +449,51 @@ const Game = () => {
         </div>
       </div>
 
+      {/* Collider Debug Toggle */}
+      <Button
+        onClick={() => setShowColliders(!showColliders)}
+        className="absolute text-primary-background top-16 right-4 z-20 bg-card border-2 border-secondary text-xs glow-cyan"
+        size="sm"
+      >
+        {showColliders ? "Hide" : "Show"} Colliders
+      </Button>
+
       {/* Game Area */}
       <div className="relative h-screen w-full">
+        {/* Colliders (debug visualization) */}
+        {showColliders &&
+          colliders.map((collider, index) => (
+            <div
+              key={`collider-${index}`}
+              className="absolute border-2 border-red-500/50 transition-all"
+              style={{
+                left: `${collider.x}%`,
+                top: `${collider.y}%`,
+                width: `${collider.width}%`,
+                height: `${collider.height}%`,
+                backgroundColor: `hsl(${
+                  collider.type === "wall"
+                    ? "0"
+                    : collider.type === "desk"
+                    ? "30"
+                    : collider.type === "chair"
+                    ? "60"
+                    : collider.type === "computer"
+                    ? "40"
+                    : collider.type === "bush"
+                    ? "90"
+                    : "180"
+                }, 70%, 50%, 0.3)`,
+              }}
+            >
+              <div className="flex items-center justify-center h-full">
+                <span className="text-xs text-red-500 font-bold">
+                  {collider.type}
+                </span>
+              </div>
+            </div>
+          ))}
+
         {/* Zones (invisible markers) */}
         {zones.map((zone) => (
           <div
@@ -378,6 +526,20 @@ const Game = () => {
             transform: "translate(-50%, -50%)",
           }}
         >
+          {/* Player collision box (debug visualization) */}
+          {showColliders && (
+            <div
+              className="absolute border-2 border-blue-500/50 bg-blue-500/20"
+              style={{
+                left: "-1.5%",
+                top: "-1.5%",
+                width: "3%",
+                height: "3%",
+                transform: "translate(-50%, -50%)",
+              }}
+            />
+          )}
+
           <canvas
             ref={canvasRef}
             width={126}
@@ -436,6 +598,7 @@ const Game = () => {
       {/* Instructions */}
       <div className="fixed bottom-4 left-4 bg-card border-2 border-secondary px-4 py-2 text-xs glow-cyan z-20">
         <p>Use Arrow Keys or WASD to move</p>
+        <p>Click "Show Colliders" to see collision boundaries</p>
       </div>
     </div>
   );
