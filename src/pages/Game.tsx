@@ -40,7 +40,8 @@ const Game = () => {
   const [currentZone, setCurrentZone] = useState<string | null>(null);
   const [visitedZones, setVisitedZones] = useState<Set<string>>(new Set());
   const [gameCompleted, setGameCompleted] = useState(false);
-  const [currentDirection, setCurrentDirection] = useState<string>("idle");
+  const [currentDirection, setCurrentDirection] =
+    useState<string>("right-down");
   const [animationFrame, setAnimationFrame] = useState<number>(0);
   const [isMoving, setIsMoving] = useState<boolean>(false);
   const [spriteImage, setSpriteImage] = useState<HTMLImageElement | null>(null);
@@ -294,7 +295,8 @@ const Game = () => {
           tempPos = { x: prev.x, y: Math.min(90, prev.y + speed) };
           moving = true;
         } else {
-          direction = "idle";
+          // Keep the current direction when no keys are pressed
+          direction = currentDirection;
           moving = false;
         }
 
@@ -316,7 +318,7 @@ const Game = () => {
       window.removeEventListener("keydown", handleKeyDown);
       window.removeEventListener("keyup", handleKeyUp);
     };
-  }, [checkZone, checkCollision]);
+  }, [checkZone, checkCollision, currentDirection]);
 
   // Load sprite image
   useEffect(() => {
@@ -341,9 +343,8 @@ const Game = () => {
         setAnimationFrame((prev) => (prev + 1) % 3);
       }, 200);
       return () => clearInterval(interval);
-    } else {
-      setAnimationFrame(0);
     }
+    // Don't reset animation frame when not moving - keep the last frame
   }, [isMoving]);
 
   // Draw sprite on canvas
@@ -409,7 +410,7 @@ const Game = () => {
         break;
       case "idle":
       default:
-        row = 2; // Default to first row when idle
+        row = 2; // Default to right-down direction when idle or unknown
         break;
     }
 
