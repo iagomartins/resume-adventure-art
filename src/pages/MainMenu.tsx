@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { resumeData } from "@/data/resumeData";
 import menuBg from "@/assets/menu-bg.png";
+import { Github, Linkedin, Mail } from "lucide-react";
 
 const MainMenu = () => {
   const navigate = useNavigate();
@@ -56,16 +57,38 @@ const MainMenu = () => {
         >
           START GAME
         </Button>
+      </div>
 
-        {/* Contact Info */}
-        <div
-          className="mt-8 text-center text-sm text-muted-foreground animate-fade-in"
-          style={{ animationDelay: "0.8s" }}
+      {/* Contact Info - Bottom Left */}
+      <div
+        className="absolute bottom-4 left-4 flex flex-col gap-2 animate-fade-in z-20"
+        style={{ animationDelay: "0.8s" }}
+      >
+        <a
+          href={`mailto:${resumeData.email}`}
+          className="flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors"
         >
-          <p>{resumeData.email}</p>
-          <p>{resumeData.linkedin}</p>
-          <p>{resumeData.github}</p>
-        </div>
+          <Mail className="h-4 w-4" />
+          <span>{resumeData.email}</span>
+        </a>
+        <a
+          href={`https://${resumeData.linkedin}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex items-center gap-2 text-sm text-muted-foreground hover:text-blue-500 transition-colors"
+        >
+          <Linkedin className="h-4 w-4" />
+          <span>{resumeData.linkedin}</span>
+        </a>
+        <a
+          href={`https://${resumeData.github}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors"
+        >
+          <Github className="h-4 w-4" />
+          <span>{resumeData.github}</span>
+        </a>
       </div>
     </div>
   );
