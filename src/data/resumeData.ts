@@ -4,6 +4,20 @@ export interface Experience {
   period: string;
   location: string;
   description: string;
+  highlights?: string[];
+}
+
+export interface BookInfo {
+  title: string;
+  subtitle: string;
+  amazonUrl: string;
+  coverImage: string;
+}
+
+export interface TechStack {
+  name: string;
+  description: string;
+  icon: string;
 }
 
 export interface ResumeData {
@@ -15,93 +29,133 @@ export interface ResumeData {
   github: string;
   phone: string;
   summary: string;
+  bio: string;
   mainSkills: string[];
   certifications: string[];
   experiences: Experience[];
+  book: BookInfo;
+  techStack: TechStack[];
 }
 
 export const resumeData: ResumeData = {
-  name: "Iago Martins",
-  title: "Software Engineer | React Native",
-  location: "Belo Horizonte, Minas Gerais, Brasil",
+  name: "Iago Alves",
+  title: "CTO & Arquiteto de Soluções Digitais",
+  location: "Ribeirão das Neves, MG, Brasil",
   email: "iagomartinsgamedesign@gmail.com",
   linkedin: "linkedin.com/in/iaamartins",
   github: "github.com/iaamartins",
-  phone: "+55 31 99522-8964",
+  phone: "+55 31 98575-9601",
   summary:
-    "Software developer with over 6 years of experience in technologies such as React Native, React.js, C#, .NET, TypeScript, and Vue.js. I have worked on full-stack development projects, data analysis, and cybersecurity. I have experience in system development, e-commerce websites, and games.",
+    "Arquiteto de software com mais de 7 anos de experiência, especializado em reduzir custos operacionais através de automação e arquitetura robusta. Atualmente CTO na Capital BH Consórcios, liderando a transformação digital e desenvolvimento de soluções proprietárias.",
+  bio: "Arquiteto de software com mais de 7 anos de experiência, especializado em reduzir custos operacionais através de automação e arquitetura robusta.",
   mainSkills: [
-    "React Native",
-    "Next.js",
-    "Vue.js",
+    "Arquitetura de Software",
+    "React / Next.js",
+    "Node.js",
     "TypeScript",
-    "C# .NET",
-    "Golang",
     "PostgreSQL",
-    "Azure",
+    "Supabase",
+    "n8n Automation",
+    "Cloud Solutions",
   ],
   certifications: [
-    "Intro to Game Development",
-    "HTML Fundamentals",
-    "Web Development with PHP and MySQL",
-    "Introduction to Vue.js",
-    "Learn Python Programming by Making a Game",
+    "Arquitetura de Soluções AWS",
+    "Automação de Processos com n8n",
+    "Supabase Expert",
+    "Advanced React Patterns",
+    "PostgreSQL Performance",
   ],
   experiences: [
     {
-      company: "MyDose App",
-      role: "Mobile Developer",
-      period: "Aug 2025 - Present",
-      location: "Marina del Rey, CA, USA",
+      company: "Capital BH Consórcios",
+      role: "CTO",
+      period: "2024 - Presente",
+      location: "Belo Horizonte, MG",
       description:
-        "Desenvolvimento e manutenção do app MyDose com React Native. Gerenciamento de Firebase e Cloud Functions. App de wellness gamificado.",
+        "Liderança técnica e arquitetura de soluções digitais para empresa de consórcios. Responsável pela transformação digital e otimização de processos operacionais.",
+      highlights: [
+        "Criação de CRM proprietário para gestão de vendas",
+        "Automação completa de propostas e documentação com n8n",
+        "Redução de 60% nos custos operacionais",
+        "Implementação de arquitetura serverless com Supabase",
+      ],
+    },
+    {
+      company: "MyDose App",
+      role: "Senior Software Engineer",
+      period: "2023 - 2024",
+      location: "Remoto (USA)",
+      description:
+        "Arquitetura e liderança técnica de app de wellness gamificado. Definição de stack tecnológico e automação de processos.",
+      highlights: [
+        "Arquitetura de backend com Firebase e Cloud Functions",
+        "Implementação de sistema de gamificação",
+        "Automação de notificações e lembretes",
+      ],
     },
     {
       company: "DATORA",
-      role: "Development Analyst",
-      period: "Jul 2024 - May 2025",
-      location: "Nova Lima, MG, Brasil",
+      role: "Senior Software Engineer",
+      period: "2022 - 2023",
+      location: "Nova Lima, MG",
       description:
-        "Análise de dados e automação no Azure. Desenvolvimento de APIs e portais em C# .NET. Implementação de segurança cibernética.",
+        "Arquitetura de soluções em nuvem Azure, automação de processos e desenvolvimento de APIs empresariais.",
+      highlights: [
+        "Design de arquitetura em nuvem Azure",
+        "Automação de processos de dados",
+        "Desenvolvimento de APIs em C# .NET",
+      ],
     },
     {
       company: "BigBang Digital",
-      role: "Full Stack Developer",
-      period: "Jul 2022 - Jul 2024",
+      role: "Senior Full Stack Developer",
+      period: "2020 - 2022",
       location: "Belo Horizonte, MG",
       description:
-        "Desenvolvimento full-stack de sistema de consórcio. Metodologia SCRUMBAN. Padrões de desenvolvimento orientados a objetos.",
+        "Desenvolvimento full-stack de sistema de consórcio com foco em arquitetura escalável e boas práticas.",
+      highlights: [
+        "Arquitetura de sistema de consórcio",
+        "Implementação de metodologia SCRUMBAN",
+        "Mentoria de desenvolvedores júnior",
+      ],
+    },
+  ],
+  book: {
+    title: "O Exército de Um Soldado",
+    subtitle: "Estratégias de Escalabilidade para Empreendedores",
+    amazonUrl: "https://www.amazon.com.br/dp/B0DYBKP9M9",
+    coverImage: "/book-cover.png",
+  },
+  techStack: [
+    {
+      name: "Supabase",
+      description: "Backend-as-a-Service com PostgreSQL",
+      icon: "Database",
     },
     {
-      company: "Big Shop Ecommerce",
-      role: "Full Stack Developer",
-      period: "Nov 2020 - Jun 2022",
-      location: "Belo Horizonte, MG",
-      description:
-        "Construção de sites com Vue.js, Quasar Framework e PHP. Desenvolvimento de marketplace com funcionalidades para afiliados.",
+      name: "n8n",
+      description: "Automação de workflows e integrações",
+      icon: "Workflow",
     },
     {
-      company: "Martins Software",
-      role: "Lead Game Designer",
-      period: "Jun 2021 - Aug 2021",
-      location: "Belo Horizonte, MG",
-      description:
-        "Desenvolvimento de videogame educacional sobre Covid-19 com Unity C#. Responsável por design, código e planejamento.",
+      name: "React / Next.js",
+      description: "Interfaces modernas e responsivas",
+      icon: "Code2",
     },
     {
-      company: "Trick27 Studios",
-      role: "Game Tester",
-      period: "May 2021 - Jun 2021",
-      location: "Belo Horizonte, MG",
-      description:
-        "Testes de qualidade e sugestões de melhorias para desenvolvimento de jogos.",
+      name: "Node.js",
+      description: "APIs e microserviços de alta performance",
+      icon: "Server",
     },
     {
-      company: "Agência Life",
-      role: "Front End Developer",
-      period: "Sep 2019 - Aug 2020",
-      location: "Belo Horizonte, MG",
-      description: "Desenvolvimento front-end de websites e aplicações web.",
+      name: "PostgreSQL",
+      description: "Banco de dados relacional robusto",
+      icon: "Database",
+    },
+    {
+      name: "TypeScript",
+      description: "Type-safe development",
+      icon: "FileCode",
     },
   ],
 };

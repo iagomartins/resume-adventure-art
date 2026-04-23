@@ -1,78 +1,54 @@
-# Resume Adventure Art 🎮
+# Iago Alves - CTO & Arquiteto de Soluções Digitais 🎯
 
-An interactive, gamified portfolio website that transforms your professional resume into an engaging adventure game experience. Navigate through different zones representing your skills, experience, and achievements while controlling a pixelated character with smooth animations.
+Portfólio profissional em formato de landing page de alta performance, focado em autoridade técnica. Apresenta trajetória como CTO, arquitetura de soluções e o livro "O Exército de Um Soldado" sobre escalabilidade empresarial.
 
 ## 🎯 Project Overview
 
-This project combines modern web development with retro gaming aesthetics to create a unique portfolio presentation. Instead of a traditional static resume, visitors explore your professional journey through an interactive game world where each zone represents different aspects of your career.
+Este projeto transforma um portfólio tradicional em uma experiência digital moderna e minimalista, combinando estética pixel art discreta com design enterprise. O foco é apresentar autoridade técnica como CTO e arquiteto de soluções, destacando automação, redução de custos e arquitetura robusta.
 
 ### Key Features
 
-- **🎮 Interactive Game World**: Navigate through zones representing different resume sections
-- **👾 Pixel Art Character**: Animated sprite character with directional movement and frame cycling
-- **🎨 Retro Gaming Aesthetics**: Pixel-perfect rendering with scanline effects and glowing UI elements
-- **📱 Responsive Design**: Works seamlessly across desktop and mobile devices
-- **⚡ Smooth Animations**: Canvas-based sprite animation system for fluid character movement
-- **🎯 Zone-based Navigation**: Explore Skills, Experience, Certifications, and more
+- **� Design Enterprise Minimalista**: Estética pixel art aplicada em bordas, ícones e botões
+- **🌓 Dark/Light Mode**: Tema alternável com greyscale como base
+- **� Internacionalização (i18n)**: Suporte bilíngue PT-BR/EN com troca dinâmica
+- **📱 Landing Page de Alta Performance**: Scroll suave e navegação intuitiva
+- **⚡ SEO Otimizado**: Estrutura semântica e metadata completa
+- **📚 Destaque para Livro**: Seção dedicada ao "O Exército de Um Soldado"
+- **💬 CTA WhatsApp**: Botão flutuante para contato direto
 
 ## 🛠️ Technologies Used
 
 ### Core Framework
 
-- **React 18.3.1** - Modern React with hooks and functional components
-- **TypeScript 5.8.3** - Type-safe JavaScript for better development experience
-- **Vite 5.4.19** - Fast build tool and development server
+- **React 18.3.1** - UI library com hooks e functional components
+- **TypeScript 5.8.3** - Type safety e DX aprimorada
+- **Vite 5.4.19** - Build tool rápido e dev server
 
 ### UI & Styling
 
 - **Tailwind CSS 3.4.17** - Utility-first CSS framework
-- **shadcn/ui** - High-quality, accessible UI components
-- **Radix UI** - Headless UI primitives for accessibility
-- **Lucide React** - Beautiful, customizable icons
-- **CSS Custom Properties** - Dynamic theming and animations
+- **shadcn/ui** - Componentes acessíveis e de alta qualidade
+- **Radix UI** - Primitives headless para acessibilidade
+- **Lucide React** - Ícones customizáveis
+- **next-themes** - Gerenciamento de temas dark/light
 
-### Animation & Graphics
+### Internacionalização
 
-- **HTML5 Canvas** - Custom sprite animation system
-- **CSS Animations** - Smooth transitions and effects
-- **Pixel Art Rendering** - Crisp, pixel-perfect graphics
-- **Frame-based Animation** - 3-frame sprite cycling for character movement
+- **Context API** - Sistema de tradução com React Context
+- **JSON-based translations** - Traduções estruturadas PT-BR/EN
+- **Dynamic language switching** - Troca sem recarregar página
 
 ### Routing & State Management
 
 - **React Router DOM 6.30.1** - Client-side routing
-- **React Hooks** - useState, useEffect, useCallback, useMemo, useRef
-- **Custom Hooks** - Reusable state logic
+- **React Hooks** - useState, useEffect, useCallback, useMemo
 
 ### Development Tools
 
-- **ESLint** - Code linting and formatting
+- **ESLint** - Code linting
 - **PostCSS** - CSS processing
-- **Autoprefixer** - CSS vendor prefixing
-- **TypeScript ESLint** - TypeScript-specific linting rules
-
-## 🎮 Game Mechanics
-
-### Character Movement
-
-- **WASD/Arrow Keys**: Control character movement
-- **Diagonal Movement**: Smooth 8-directional movement with quadrant-based animations
-- **Sprite Animation**: 3-frame animation cycles for each direction
-- **Canvas Rendering**: High-performance sprite rendering
-
-### Zone System
-
-- **Skills Zone**: Showcases technical abilities and technologies
-- **Experience Zone**: Displays work history and career progression
-- **Certifications Zone**: Highlights professional certifications
-- **Completion Zone**: Final destination with contact information
-
-### Visual Effects
-
-- **Scanline Effect**: Retro CRT monitor aesthetic
-- **Glow Effects**: Purple and cyan glowing elements
-- **Pixelated Rendering**: Crisp, pixel-perfect graphics
-- **Smooth Transitions**: Fluid movement and UI animations
+- **Autoprefixer** - Vendor prefixing
+- **TypeScript ESLint** - TS-specific linting
 
 ## 🚀 Getting Started
 
@@ -118,25 +94,32 @@ This project combines modern web development with retro gaming aesthetics to cre
 ```
 src/
 ├── components/
-│   └── ui/                 # shadcn/ui components
+│   ├── ui/                 # shadcn/ui components
+│   ├── LanguageSwitcher.tsx   # Dropdown de troca de idioma
+│   ├── Navbar.tsx             # Navegação fixa responsiva
+│   ├── ThemeProvider.tsx      # Provider do next-themes
+│   ├── ThemeToggle.tsx        # Botão dark/light mode
+│   └── WhatsAppButton.tsx     # CTA flutuante e inline
+├── contexts/
+│   └── I18nContext.tsx     # Contexto de internacionalização
 ├── data/
-│   └── resumeData.ts       # Resume data and interfaces
+│   └── resumeData.ts       # Dados do CTO, livro e tech stack
 ├── hooks/
 │   ├── use-mobile.tsx      # Mobile detection hook
 │   └── use-toast.ts        # Toast notification hook
 ├── lib/
 │   └── utils.ts            # Utility functions
 ├── pages/
-│   ├── Game.tsx            # Main game component
-│   ├── MainMenu.tsx        # Landing page
-│   ├── Index.tsx           # Home page
+│   ├── Index.tsx           # Landing page principal
 │   └── NotFound.tsx        # 404 page
-├── assets/
-│   ├── character.png       # Character sprite (legacy)
-│   ├── iago_pixel.png      # Main character sprite sheet
-│   ├── game-bg.png         # Game background
-│   └── menu-bg.png         # Menu background
-└── main.tsx                # Application entry point
+├── index.css               # Tema greyscale + dark mode
+├── App.tsx                 # Root com providers
+└── main.tsx                # Entry point
+
+public/
+├── capa.png                # Capa do livro
+├── iago_bamaq.png          # Foto de perfil
+└── favicon*                # Favicons
 ```
 
 ## 🎨 Customization
@@ -145,26 +128,31 @@ src/
 
 Edit `src/data/resumeData.ts` to customize:
 
-- Personal information
-- Skills and technologies
-- Work experience
-- Certifications
+- Personal information (nome, título, bio)
+- Work experience com highlights
+- Tech stack com ícones
+- Informações do livro (título, sinopse, Amazon URL)
 - Contact details
 
-### Sprite Animation
+### Internacionalização
 
-The character uses a sprite sheet with:
+Adicione novas chaves em `src/contexts/I18nContext.tsx`:
 
-- **Dimensions**: 146×313 pixels per frame
-- **Layout**: 4 rows × 3 columns (12 total frames)
-- **Animation**: 3 frames per direction
-- **Directions**: Left-Down, Left-Up, Right-Down, Right-Up
+```typescript
+const translations = {
+  'pt-BR': { yourKey: 'valor' },
+  'en': { yourKey: 'value' }
+}
+```
+
+Use no componente: `t('yourKey')`
 
 ### Styling
 
-- Modify `tailwind.config.ts` for theme customization
-- Update CSS variables in `src/index.css` for color schemes
-- Customize animations in component styles
+- Tema greyscale em `src/index.css` com variáveis CSS
+- Classes utilitárias: `.pixel-btn`, `.pixel-card`, `.pixel-border`
+- Dark mode automático via `next-themes`
+- Fonte Inter para body, Press Start 2P para headings
 
 ## 🚀 Deployment
 
@@ -182,21 +170,33 @@ The character uses a sprite sheet with:
 
 ## 👨‍💻 Author
 
-**Iago Martins**
+**Iago Alves**
 
-- Software Engineer | React Native Developer
-- Location: Belo Horizonte, Minas Gerais, Brasil
+- CTO & Arquiteto de Soluções Digitais
+- Especialista em automação e redução de custos operacionais
+- Autor do livro "O Exército de Um Soldado: Estratégias de Escalabilidade para Empreendedores"
+- Localização: Ribeirão das Neves, MG, Brasil
 - Email: iagomartinsgamedesign@gmail.com
 - LinkedIn: [linkedin.com/in/iaamartins](https://linkedin.com/in/iaamartins)
+- WhatsApp: [wa.me/5531985759601](https://wa.me/5531985759601)
+
+## 📚 Sobre o Livro
+
+**"O Exército de Um Soldado"** - Disponível na [Amazon](https://www.amazon.com.br/dp/B0DYBKP9M9)
+
+Um guia prático para empreendedores que desejam escalar seus negócios sem depender exclusivamente de contratações em massa. Aprenda a construir sistemas robustos, processos eficientes e uma arquitetura tecnológica que cresce com seu negócio.
+
+> "Escala não é sobre pessoas, é sobre sistemas."
 
 ## 🙏 Acknowledgments
 
-- **shadcn/ui** for the beautiful component library
-- **Radix UI** for accessible primitives
-- **Lucide** for the icon set
-- **Tailwind CSS** for the utility-first approach
-- **React** and **TypeScript** communities for excellent tooling
+- **shadcn/ui** - Component library
+- **Radix UI** - Accessible primitives
+- **Lucide** - Icon set
+- **Tailwind CSS** - Utility-first CSS
+- **next-themes** - Theme management
+- **React & TypeScript** communities
 
 ---
 
-_Built with ❤️ using React, TypeScript, and a passion for creative web development_
+_Built with precision using React, TypeScript, and enterprise-grade architecture principles_
