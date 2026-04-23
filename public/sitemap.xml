@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  <url>
+    <loc>https://iagomartins.vercel.app/</loc>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://iagomartins.vercel.app/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://iagomartins.vercel.app/?lang=en" />
+    <lastmod>2024-04-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://iagomartins.vercel.app/iago_bamaq.png</image:loc>
+      <image:title>Iago Alves - CTO e Arquiteto de Soluções Digitais</image:title>
+      <image:caption>Foto de perfil profissional de Iago Alves</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://iagomartins.vercel.app/capa.png</image:loc>
+      <image:title>O Exército de Um Soldado - Livro de Iago Alves</image:title>
+      <image:caption>Capa do livro sobre estratégias de escalabilidade empresarial</image:caption>
+    </image:image>
+  </url>
+</urlset>

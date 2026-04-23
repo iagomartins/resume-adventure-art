@@ -119,6 +119,9 @@ src/
 public/
 ├── capa.png                # Capa do livro
 ├── iago_bamaq.png          # Foto de perfil
+├── sitemap.xml             # Sitemap para SEO
+├── robots.txt              # Diretrizes para crawlers
+├── site.webmanifest        # PWA manifest
 └── favicon*                # Favicons
 ```
 
@@ -153,6 +156,54 @@ Use no componente: `t('yourKey')`
 - Classes utilitárias: `.pixel-btn`, `.pixel-card`, `.pixel-border`
 - Dark mode automático via `next-themes`
 - Fonte Inter para body, Press Start 2P para headings
+
+## 🔍 SEO & Otimização
+
+O site está otimizado para mecanismos de busca com as seguintes configurações:
+
+### Meta Tags
+- **Title e Description**: Otimizados para keywords relevantes (CTO, Arquiteto de Software, Automação)
+- **Keywords**: Inclui termos de busca como Supabase, n8n, React, Node.js, PostgreSQL
+- **Canonical URL**: `https://iagomartins.vercel.app/`
+- **Hreflang**: Suporte a PT-BR e EN
+
+### Open Graph / Social Sharing
+- **og:type**: `profile` para página pessoal
+- **og:image**: Foto de perfil com dimensões e alt text
+- **og:locale**: `pt_BR` com suporte a alternates
+- **Twitter Cards**: Summary large image com todos os metadados
+
+### Schema.org Structured Data (JSON-LD)
+
+1. **Person Schema**: Informações completas sobre Iago Alves
+   - JobTitle, description, image
+   - SameAs links (LinkedIn, GitHub, Amazon)
+   - Endereço em Ribeirão das Neves, MG
+   - Employer atual (Capital BH Consórcios)
+   - Áreas de conhecimento (Arquitetura de Software, Automação, etc.)
+
+2. **Book Schema**: "O Exército de Um Soldado"
+   - ISBN, autor, descrição
+   - URL da Amazon com oferta
+   - Suporte a múltiplos idiomas
+
+3. **ProfessionalService Schema**: Consultoria técnica
+   - Telefone, email, endereço com coordenadas geográficas
+   - Tipos de serviço oferecidos
+   - Área de atuação (Brasil)
+
+### Arquivos de SEO
+```
+public/
+├── sitemap.xml           # Sitemap com hreflang e imagens
+├── robots.txt            # Acesso liberado + referência ao sitemap
+└── site.webmanifest      # PWA manifest
+```
+
+### Performance
+- Preconnect para Google Fonts
+- DNS prefetch para recursos externos
+- Imagens otimizadas com alt text descritivo
 
 ## 🚀 Deployment
 
