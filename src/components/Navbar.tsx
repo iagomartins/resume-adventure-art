@@ -7,8 +7,8 @@ import { useI18n } from '@/contexts/I18nContext';
 
 const navLinks = [
   { key: 'home', href: '#hero' },
-  { key: 'book', href: '#book' },
   { key: 'experience', href: '#experience' },
+  { key: 'book', href: '#book' },
   { key: 'tech', href: '#tech' },
   { key: 'erp', href: '#erp' },
   { key: 'contact', href: '#contact' },

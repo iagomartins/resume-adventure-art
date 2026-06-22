@@ -1,4 +1,4 @@
-import { resumeData } from '@/data/resumeData';
+import { useResumeData } from '@/data/resumeData';
 import { useI18n } from '@/contexts/I18nContext';
 import { Navbar } from '@/components/Navbar';
 import { WhatsAppButton } from '@/components/WhatsAppButton';
@@ -18,6 +18,8 @@ import {
   MapPin,
   BookOpen,
   CheckCircle,
+  Sparkles,
+  Rocket,
 } from 'lucide-react';
 
 const iconMap: { [key: string]: React.ElementType } = {
@@ -26,10 +28,14 @@ const iconMap: { [key: string]: React.ElementType } = {
   Code2,
   Server,
   FileCode,
+  Sparkles,
+  Rocket,
 };
 
 const Index = () => {
   const { t } = useI18n();
+  const resumeData = useResumeData();
+  const currentRole = resumeData.experiences[0];
 
   return (
     <div className="min-h-screen bg-background text-foreground">
@@ -83,8 +89,103 @@ const Index = () => {
         </div>
       </section>
 
+      {/* Experience Section */}
+      <section id="experience" className="section-padding bg-secondary/50">
+        <div className="container-wide">
+          <div className="text-center mb-12">
+            <Badge
+              variant="outline"
+              className="pixel-border mb-4 px-3 py-1 text-xs font-mono"
+            >
+              EXPERIÊNCIA
+            </Badge>
+            <h2 className="text-2xl md:text-3xl font-bold">
+              {t('experience.sectionTitle') as string}
+            </h2>
+          </div>
+
+          {/* Featured Experience - Current Role */}
+          <Card className="pixel-card bg-card border-2 mb-8 max-w-3xl mx-auto">
+            <CardContent className="p-6 md:p-8">
+              <div className="flex flex-col md:flex-row md:items-start md:justify-between mb-4">
+                <div>
+                  <h3 className="text-xl font-bold mb-1">{currentRole.role}</h3>
+                  <p className="text-lg text-primary">{currentRole.company}</p>
+                  <p className="text-sm text-muted-foreground mt-1">
+                    {currentRole.location}
+                  </p>
+                </div>
+                <Badge variant="secondary" className="mt-2 md:mt-0 w-fit">
+                  {currentRole.period}
+                </Badge>
+              </div>
+
+              <p className="text-muted-foreground mt-4">{currentRole.description}</p>
+
+              <div className="space-y-3 mt-6">
+                {(currentRole.highlights ?? []).map((achievement, idx) => (
+                  <div key={idx} className="flex items-start gap-3">
+                    <CheckCircle className="h-5 w-5 text-[hsl(142,76%,36%)] mt-0.5 shrink-0" />
+                    <span className="text-muted-foreground">{achievement}</span>
+                  </div>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Previous Experience Timeline */}
+          <div className="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+            {resumeData.experiences.slice(1).map((exp, idx) => (
+              <Card
+                key={idx}
+                className="pixel-card bg-card hover:border-primary transition-colors"
+              >
+                <CardContent className="p-5">
+                  <Badge variant="outline" className="mb-3 text-xs">
+                    {exp.period}
+                  </Badge>
+                  <h4 className="font-bold text-sm mb-1">{exp.role}</h4>
+                  <p className="text-xs text-muted-foreground">{exp.company}</p>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+
+          {/* Skills & Stack */}
+          <div className="max-w-4xl mx-auto mt-12">
+            <h3 className="text-center text-sm font-mono uppercase tracking-wider text-muted-foreground mb-6">
+              {t('experience.skillsTitle') as string}
+            </h3>
+            <div className="flex flex-wrap justify-center gap-2">
+              {resumeData.mainSkills.map((skill, idx) => (
+                <Badge
+                  key={idx}
+                  variant="outline"
+                  className="pixel-border px-3 py-1 text-xs font-mono hover:border-primary hover:text-primary transition-colors"
+                >
+                  {skill}
+                </Badge>
+              ))}
+            </div>
+          </div>
+
+          <div className="text-center mt-8">
+            <a
+              href={`https://${resumeData.linkedin}`}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Button variant="outline" className="pixel-btn">
+                <Linkedin className="h-4 w-4 mr-2" />
+                {t('experience.ctaLinkedIn') as string}
+              </Button>
+            </a>
+          </div>
+        </div>
+      </section>
+
       {/* Book Section */}
-      <section id="book" className="section-padding bg-secondary/50">
+      <section id="book" className="section-padding">
         <div className="container-wide">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             {/* Book Cover */}
@@ -135,86 +236,6 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Experience Section */}
-      <section id="experience" className="section-padding">
-        <div className="container-wide">
-          <div className="text-center mb-12">
-            <Badge
-              variant="outline"
-              className="pixel-border mb-4 px-3 py-1 text-xs font-mono"
-            >
-              EXPERIÊNCIA
-            </Badge>
-            <h2 className="text-2xl md:text-3xl font-bold">
-              {t('experience.sectionTitle') as string}
-            </h2>
-          </div>
-
-          {/* Featured Experience - Current Role */}
-          <Card className="pixel-card bg-card border-2 mb-8 max-w-3xl mx-auto">
-            <CardContent className="p-6 md:p-8">
-              <div className="flex flex-col md:flex-row md:items-start md:justify-between mb-4">
-                <div>
-                  <h3 className="text-xl font-bold mb-1">
-                    {t('experience.currentRole') as string}
-                  </h3>
-                  <p className="text-lg text-primary">
-                    {t('experience.currentCompany') as string}
-                  </p>
-                </div>
-                <Badge variant="secondary" className="mt-2 md:mt-0 w-fit">
-                  2024 - Presente
-                </Badge>
-              </div>
-
-              <div className="space-y-3 mt-6">
-                {[
-                  t('experience.achievement1') as string,
-                  t('experience.achievement2') as string,
-                  t('experience.achievement3') as string,
-                ].map((achievement, idx) => (
-                  <div key={idx} className="flex items-start gap-3">
-                    <CheckCircle className="h-5 w-5 text-[hsl(142,76%,36%)] mt-0.5 shrink-0" />
-                    <span className="text-muted-foreground">{achievement}</span>
-                  </div>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* Previous Experience Timeline */}
-          <div className="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
-            {resumeData.experiences.slice(1).map((exp, idx) => (
-              <Card
-                key={idx}
-                className="pixel-card bg-card hover:border-primary transition-colors"
-              >
-                <CardContent className="p-5">
-                  <Badge variant="outline" className="mb-3 text-xs">
-                    {exp.period}
-                  </Badge>
-                  <h4 className="font-bold text-sm mb-1">{exp.role}</h4>
-                  <p className="text-xs text-muted-foreground">{exp.company}</p>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-
-          <div className="text-center mt-8">
-            <a
-              href={`https://${resumeData.linkedin}`}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <Button variant="outline" className="pixel-btn">
-                <Linkedin className="h-4 w-4 mr-2" />
-                {t('experience.ctaLinkedIn') as string}
-              </Button>
-            </a>
-          </div>
-        </div>
-      </section>
-
       {/* Tech Stack Section */}
       <section id="tech" className="section-padding bg-secondary/50">
         <div className="container-wide">
@@ -248,7 +269,7 @@ const Index = () => {
                     <div>
                       <h4 className="font-bold text-sm mb-1">{tech.name}</h4>
                       <p className="text-xs text-muted-foreground">
-                        {t(`tech.${tech.name.toLowerCase().replace(/[/.\s]/g, '')}`) as string || tech.description}
+                        {tech.description}
                       </p>
                     </div>
                   </CardContent>

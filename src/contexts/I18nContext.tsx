@@ -17,7 +17,7 @@ const translations = {
       contact: 'Contato',
     },
     hero: {
-      role: 'CTO & Arquiteto de Soluções Digitais',
+      role: 'Especialista em IA e Automação de Processos',
       tagline: 'Escala não é sobre pessoas, é sobre sistemas.',
       ctaBook: 'Conheça Meu Livro',
       ctaContact: 'Fale Comigo',
@@ -30,11 +30,7 @@ const translations = {
     },
     experience: {
       sectionTitle: 'Experiência Profissional',
-      currentRole: 'CTO & Arquiteto de Soluções',
-      currentCompany: 'Capital BH Consórcios',
-      achievement1: 'Criação de CRM proprietário para gestão de vendas',
-      achievement2: 'Automação completa de propostas e documentação',
-      achievement3: 'Redução de 60% nos custos operacionais',
+      skillsTitle: 'Competências & Stack',
       ctaLinkedIn: 'Ver Perfil Completo',
     },
     tech: {
@@ -79,7 +75,7 @@ const translations = {
       contact: 'Contact',
     },
     hero: {
-      role: 'CTO & Digital Solutions Architect',
+      role: 'AI & Process Automation Specialist',
       tagline: 'Scale is not about people, it is about systems.',
       ctaBook: 'Discover My Book',
       ctaContact: 'Get in Touch',
@@ -92,11 +88,7 @@ const translations = {
     },
     experience: {
       sectionTitle: 'Professional Experience',
-      currentRole: 'CTO & Solutions Architect',
-      currentCompany: 'Capital BH Consórcios',
-      achievement1: 'Creation of proprietary CRM for sales management',
-      achievement2: 'Complete automation of proposals and documentation',
-      achievement3: '60% reduction in operational costs',
+      skillsTitle: 'Skills & Stack',
       ctaLinkedIn: 'View Full Profile',
     },
     tech: {
