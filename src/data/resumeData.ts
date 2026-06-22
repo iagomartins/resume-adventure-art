@@ -50,6 +50,9 @@ export const resumeData: ResumeData = {
   bio: "Arquiteto de software com mais de 7 anos de experiência, especializado em reduzir custos operacionais através de automação e arquitetura robusta.",
   mainSkills: [
     "Arquitetura de Software",
+    "Business Intelligence",
+    "ERP Integrations",
+    "Power BI",
     "React / Next.js",
     "Node.js",
     "TypeScript",
@@ -151,6 +154,16 @@ export const resumeData: ResumeData = {
       name: "PostgreSQL",
       description: "Banco de dados relacional robusto",
       icon: "Database",
+    },
+    {
+      name: "Power BI",
+      description: "Dashboards e relatórios analíticos empresariais",
+      icon: "Database",
+    },
+    {
+      name: "ERP",
+      description: "Integrações entre sistemas operacionais e financeiros",
+      icon: "Workflow",
     },
     {
       name: "TypeScript",

@@ -13,6 +13,7 @@ const translations = {
       book: 'O Livro',
       experience: 'Experiência',
       tech: 'Tecnologias',
+      erp: 'ERP & Power BI',
       contact: 'Contato',
     },
     hero: {
@@ -44,7 +45,18 @@ const translations = {
       reactnextjs: 'Interfaces modernas e responsivas',
       nodejs: 'APIs e microserviços de alta performance',
       postgresql: 'Banco de dados relacional robusto',
+      powerbi: 'Dashboards e relatórios analíticos empresariais',
+      erp: 'Integrações entre sistemas operacionais e financeiros',
       typescript: 'Type-safe development',
+    },
+    erp: {
+      sectionTitle: 'ERP Integrations & Power BI',
+      subtitle: 'Ciência de dados e Inteligência de Negócios aplicadas à operação',
+      description: 'Desenvolvo integrações ERP e soluções Power BI que transformam dados transacionais em dashboards estratégicos, KPIs e insights acionáveis. Trabalho com mapeamento de processos, automação ETL, modelagem de dados e governança para criar inteligência confiável a partir de sistemas financeiros, comerciais e logísticos.',
+      bullet1: 'Conexão de ERPs financeiros, fiscais e operacionais com fontes externas.',
+      bullet2: 'Modelos tabulares e data marts em Power BI para relatórios gerenciais.',
+      bullet3: 'Pipelines ETL automatizados e governança de qualidade de dados.',
+      bullet4: 'Entrega de métricas e KPIs acionáveis para decisões rápidas.',
     },
     contact: {
       sectionTitle: 'Vamos Conversar',
@@ -63,6 +75,7 @@ const translations = {
       book: 'The Book',
       experience: 'Experience',
       tech: 'Tech Stack',
+      erp: 'ERP & Power BI',
       contact: 'Contact',
     },
     hero: {
@@ -94,7 +107,18 @@ const translations = {
       reactnextjs: 'Modern and responsive interfaces',
       nodejs: 'High-performance APIs and microservices',
       postgresql: 'Robust relational database',
+      powerbi: 'Business analytics dashboards and reports',
+      erp: 'Operational and financial system integrations',
       typescript: 'Type-safe development',
+    },
+    erp: {
+      sectionTitle: 'ERP Integrations & Power BI',
+      subtitle: 'Data Science and BI applied to operational intelligence',
+      description: 'I design ERP integrations and Power BI solutions that turn transactional business data into strategic dashboards, KPIs and actionable insights. My work combines process mapping, ETL automation, data modeling and governance to create reliable intelligence from financial, sales and logistics systems.',
+      bullet1: 'Conexão de ERPs financeiros, fiscais e operacionais com fontes externas.',
+      bullet2: 'Modelos tabulares e data marts em Power BI para relatórios gerenciais.',
+      bullet3: 'Pipelines ETL automatizados e governança de qualidade de dados.',
+      bullet4: 'Entrega de métricas e KPIs acionáveis para decisões rápidas.',
     },
     contact: {
       sectionTitle: "Let's Talk",

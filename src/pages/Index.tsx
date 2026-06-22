@@ -259,6 +259,49 @@ const Index = () => {
         </div>
       </section>
 
+      {/* ERP & Power BI Section */}
+      <section id="erp" className="section-padding">
+        <div className="container-wide">
+          <div className="text-center mb-12">
+            <Badge
+              variant="outline"
+              className="pixel-border mb-4 px-3 py-1 text-xs font-mono"
+            >
+              ERP & Power BI
+            </Badge>
+            <h2 className="text-2xl md:text-3xl font-bold mb-2">
+              {t('erp.sectionTitle') as string}
+            </h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto">
+              {t('erp.subtitle') as string}
+            </p>
+          </div>
+
+          <div className="grid gap-6 max-w-4xl mx-auto">
+            <Card className="pixel-card bg-card border-2">
+              <CardContent className="p-6">
+                <p className="text-base leading-relaxed text-muted-foreground">
+                  {t('erp.description') as string}
+                </p>
+                <div className="grid gap-3 mt-6 sm:grid-cols-2">
+                  {[
+                    t('erp.bullet1') as string,
+                    t('erp.bullet2') as string,
+                    t('erp.bullet3') as string,
+                    t('erp.bullet4') as string,
+                  ].map((item, idx) => (
+                    <div key={idx} className="flex items-start gap-3">
+                      <CheckCircle className="h-5 w-5 text-[hsl(142,76%,36%)] mt-0.5 shrink-0" />
+                      <span className="text-sm text-muted-foreground">{item}</span>
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+
       {/* Contact Section */}
       <section id="contact" className="section-padding">
         <div className="container-tight text-center">
