@@ -35,9 +35,10 @@ export function Navbar() {
             e.preventDefault();
             handleNavClick('#hero');
           }}
+          aria-label="Iago Martins - Início"
           className="pixel-font text-sm font-bold text-foreground hover:text-primary transition-colors"
         >
-          IA
+          IM
         </a>
 
         {/* Desktop Nav */}
@@ -66,6 +67,7 @@ export function Navbar() {
           variant="ghost"
           size="sm"
           onClick={() => setIsOpen(!isOpen)}
+          aria-label={isOpen ? "Fechar menu de navegação" : "Abrir menu de navegação"}
           className="md:hidden pixel-btn"
         >
           {isOpen ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}

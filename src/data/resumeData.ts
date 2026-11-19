@@ -7,6 +7,9 @@ export interface Experience {
   location: string;
   description: string;
   highlights?: string[];
+  companyUrl?: string;
+  ctaText?: string;
+  ctaUrl?: string;
 }
 
 export interface BookInfo {
@@ -34,25 +37,28 @@ export interface ResumeData {
   bio: string;
   mainSkills: string[];
   certifications: string[];
+  currentRoles: Experience[];
   experiences: Experience[];
   book: BookInfo;
   techStack: TechStack[];
 }
 
 const resumeDataPtBR: ResumeData = {
-  name: "Iago Alves",
-  title: "Especialista em IA e Automação de Processos",
-  location: "Ribeirão das Neves, MG, Brasil",
+  name: "Iago Martins",
+  title: "CTO, CEO e Arquiteto de Software",
+  location: "Belo Horizonte, MG, Brasil",
   email: "iagomartinsgamedesign@gmail.com",
   linkedin: "linkedin.com/in/iaamartins",
-  github: "github.com/iaamartins",
+  github: "github.com/iagomartins",
   phone: "+55 31 98575-9601",
   summary:
-    "Arquiteto de software com mais de 7 anos de experiência, especializado em reduzir custos operacionais através de automação e arquitetura robusta. Atualmente CTO na Capital BH Consórcios, liderando a transformação digital e desenvolvimento de soluções proprietárias.",
+    "Arquiteto de software com mais de 7 anos de experiência, especializado em reduzir custos operacionais através de automação e arquitetura robusta. Atualmente CTO na Capital BH Consórcios e Fundador & CEO na Tech Arte Agência Digital.",
   bio: "Arquiteto de software com mais de 7 anos de experiência, especializado em reduzir custos operacionais através de automação e arquitetura robusta.",
   mainSkills: [
     "Arquitetura de Software",
     "Design Patterns",
+    "White-Label SaaS",
+    "Sistemas Multi-tenant",
     "React.js / Next.js",
     "Vue.js / Pinia",
     "Node.js",
@@ -69,9 +75,7 @@ const resumeDataPtBR: ResumeData = {
     "Segurança da Informação",
     "Business Intelligence / Power BI",
     "UI/UX & Design System",
-    "Marketing Digital & Lead Gen",
-    "Gestão de Tráfego (Meta / Google Ads)",
-    "3D Modelling (Blender)",
+    "Growth & SEO Técnico",
   ],
   certifications: [
     "Arquitetura de Soluções AWS",
@@ -80,7 +84,7 @@ const resumeDataPtBR: ResumeData = {
     "Advanced React Patterns",
     "PostgreSQL Performance",
   ],
-  experiences: [
+  currentRoles: [
     {
       company: "Capital BH Consórcios",
       role: "CTO",
@@ -95,6 +99,25 @@ const resumeDataPtBR: ResumeData = {
         "Gestão de tecnologia, DevOps e liderança técnica end-to-end",
       ],
     },
+    {
+      company: "Tech Arte Agência Digital",
+      role: "CEO",
+      companyUrl: "https://techarte.dev",
+      period: "2026 - Presente",
+      location: "Belo Horizonte, MG · Remoto",
+      description:
+        "Fundador e CEO da Tech Arte, estúdio de software e agência digital focada na construção de plataformas SaaS White-Label, sistemas multi-tenant e ecossistemas digitais de alta conversão sob medida para empresas em escala.",
+      highlights: [
+        "Arquitetura nativa White-Label e Multi-tenant (SaaS escalável)",
+        "Desenvolvimento de plataformas E-commerce, CRMs e painéis administrativos",
+        "Automação operacional sob medida e integrações via APIs/Webhooks",
+        "Engenharia de Growth, SEO técnico e infraestrutura focada em ROI",
+      ],
+      ctaText: "Visitar techarte.dev ↗",
+      ctaUrl: "https://techarte.dev",
+    },
+  ],
+  experiences: [
     {
       company: "Capital BH Consórcios",
       role: "Arquiteto de Soluções Digitais",
@@ -152,7 +175,7 @@ const resumeDataPtBR: ResumeData = {
     title: "O Exército de Um Soldado",
     subtitle: "Estratégias de Escalabilidade para Empreendedores",
     amazonUrl: "https://www.amazon.com.br/dp/B0DYBKP9M9",
-    coverImage: "/book-cover.png",
+    coverImage: "/capa.png",
   },
   techStack: [
     {
@@ -214,19 +237,21 @@ const resumeDataPtBR: ResumeData = {
 };
 
 const resumeDataEn: ResumeData = {
-  name: "Iago Alves",
-  title: "AI & Process Automation Specialist",
-  location: "Ribeirão das Neves, MG, Brazil",
+  name: "Iago Martins",
+  title: "CTO, CEO and Software Architect",
+  location: "Belo Horizonte, MG, Brazil",
   email: "iagomartinsgamedesign@gmail.com",
   linkedin: "linkedin.com/in/iaamartins",
-  github: "github.com/iaamartins",
+  github: "github.com/iagomartins",
   phone: "+55 31 98575-9601",
   summary:
-    "Software architect with over 7 years of experience, specialized in reducing operational costs through automation and robust architecture. Currently CTO at Capital BH Consórcios, leading digital transformation and the development of proprietary solutions.",
+    "Software architect with over 7 years of experience, specialized in reducing operational costs through automation and robust architecture. Currently CTO at Capital BH Consórcios and Founder & CEO at Tech Arte Agência Digital.",
   bio: "Software architect with over 7 years of experience, specialized in reducing operational costs through automation and robust architecture.",
   mainSkills: [
     "Software Architecture",
     "Design Patterns",
+    "White-Label SaaS",
+    "Multi-tenant Systems",
     "React.js / Next.js",
     "Vue.js / Pinia",
     "Node.js",
@@ -243,9 +268,7 @@ const resumeDataEn: ResumeData = {
     "Information Security",
     "Business Intelligence / Power BI",
     "UI/UX & Design System",
-    "Digital Marketing & Lead Gen",
-    "Traffic Management (Meta / Google Ads)",
-    "3D Modelling (Blender)",
+    "Growth & Technical SEO",
   ],
   certifications: [
     "AWS Solutions Architecture",
@@ -254,7 +277,7 @@ const resumeDataEn: ResumeData = {
     "Advanced React Patterns",
     "PostgreSQL Performance",
   ],
-  experiences: [
+  currentRoles: [
     {
       company: "Capital BH Consórcios",
       role: "CTO",
@@ -269,6 +292,25 @@ const resumeDataEn: ResumeData = {
         "Technology management, DevOps and end-to-end technical leadership",
       ],
     },
+    {
+      company: "Tech Arte Agência Digital",
+      role: "CEO",
+      companyUrl: "https://techarte.dev",
+      period: "2026 - Present",
+      location: "Belo Horizonte, MG · Remote",
+      description:
+        "Founder and CEO of Tech Arte, a software studio and digital agency focused on building White-Label SaaS platforms, multi-tenant systems, and high-conversion digital ecosystems tailored for scaling businesses.",
+      highlights: [
+        "Native White-Label and Multi-tenant architecture (scalable SaaS)",
+        "Development of E-commerce platforms, CRMs, and admin dashboards",
+        "Custom operational automation and API/Webhook integrations",
+        "Growth engineering, technical SEO, and ROI-driven infrastructure",
+      ],
+      ctaText: "Visit techarte.dev ↗",
+      ctaUrl: "https://techarte.dev",
+    },
+  ],
+  experiences: [
     {
       company: "Capital BH Consórcios",
       role: "Digital Solutions Architect",
@@ -285,7 +327,7 @@ const resumeDataEn: ResumeData = {
     {
       company: "MyDose App",
       role: "Senior Software Engineer",
-      period: "2025 - 2026",
+      period: "2024 - 2025",
       location: "Remote (USA)",
       description:
         "Architecture and technical leadership of a gamified wellness app. Tech stack definition and process automation.",
@@ -298,7 +340,7 @@ const resumeDataEn: ResumeData = {
     {
       company: "DATORA",
       role: "Senior Software Engineer",
-      period: "2024 - 2025",
+      period: "2023 - 2024",
       location: "Nova Lima, MG",
       description:
         "Azure cloud solutions architecture, process automation and development of enterprise APIs.",
@@ -326,7 +368,7 @@ const resumeDataEn: ResumeData = {
     title: "The Army of One Soldier",
     subtitle: "Scalability Strategies for Entrepreneurs",
     amazonUrl: "https://www.amazon.com.br/dp/B0DYBKP9M9",
-    coverImage: "/book-cover.png",
+    coverImage: "/capa.png",
   },
   techStack: [
     {

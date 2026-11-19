@@ -24,6 +24,7 @@ export function LanguageSwitcher() {
         <Button
           variant="ghost"
           size="sm"
+          aria-label="Selecionar idioma / Select language"
           className="pixel-btn bg-secondary text-secondary-foreground hover:bg-secondary/80"
         >
           <Globe className="h-4 w-4 mr-2" />

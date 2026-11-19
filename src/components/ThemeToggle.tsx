@@ -10,6 +10,7 @@ export function ThemeToggle() {
       variant="ghost"
       size="sm"
       onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+      aria-label="Alternar tema / Toggle theme"
       className="pixel-btn bg-secondary text-secondary-foreground hover:bg-secondary/80"
     >
       {theme === 'dark' ? (

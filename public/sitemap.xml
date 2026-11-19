@@ -3,21 +3,27 @@
         xmlns:xhtml="http://www.w3.org/1999/xhtml"
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
-    <loc>https://iagomartins.vercel.app/</loc>
-    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://iagomartins.vercel.app/" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://iagomartins.vercel.app/?lang=en" />
-    <lastmod>2024-04-23</lastmod>
-    <changefreq>monthly</changefreq>
+    <loc>https://iago-martins.vercel.app/</loc>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://iago-martins.vercel.app/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://iago-martins.vercel.app/?lang=en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://iago-martins.vercel.app/" />
+    <lastmod>2026-11-19</lastmod>
+    <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <image:image>
-      <image:loc>https://iagomartins.vercel.app/iago_bamaq.png</image:loc>
-      <image:title>Iago Alves - CTO e Arquiteto de Soluções Digitais</image:title>
-      <image:caption>Foto de perfil profissional de Iago Alves</image:caption>
+      <image:loc>https://iago-martins.vercel.app/og-image.png</image:loc>
+      <image:title>Iago Martins | CTO, CEO na Tech Arte &amp; Arquiteto de Soluções Digitais</image:title>
+      <image:caption>Iago Martins - CTO na Capital BH Consórcios e CEO na Tech Arte</image:caption>
     </image:image>
     <image:image>
-      <image:loc>https://iagomartins.vercel.app/capa.png</image:loc>
-      <image:title>O Exército de Um Soldado - Livro de Iago Alves</image:title>
-      <image:caption>Capa do livro sobre estratégias de escalabilidade empresarial</image:caption>
+      <image:loc>https://iago-martins.vercel.app/iago_bamaq.png</image:loc>
+      <image:title>Iago Martins - Foto Profissional</image:title>
+      <image:caption>Foto de perfil profissional de Iago Martins</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://iago-martins.vercel.app/capa.png</image:loc>
+      <image:title>O Exército de um Soldado - Livro por Iago Martins</image:title>
+      <image:caption>Capa do livro O Exército de um Soldado: Como construir impérios digitais autônomos com custo zero de software</image:caption>
     </image:image>
   </url>
 </urlset>

@@ -35,7 +35,6 @@ const iconMap: { [key: string]: React.ElementType } = {
 const Index = () => {
   const { t } = useI18n();
   const resumeData = useResumeData();
-  const currentRole = resumeData.experiences[0];
 
   return (
     <div className="min-h-screen bg-background text-foreground">
@@ -53,6 +52,8 @@ const Index = () => {
               <img
                 src="/iago_bamaq.png"
                 alt={resumeData.name}
+                width={160}
+                height={160}
                 className="w-full h-full object-cover object-top"
               />
             </div>
@@ -78,7 +79,7 @@ const Index = () => {
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <a href="#book">
+            <a href="#book" aria-label="Ir para seção do livro O Exército de um Soldado">
               <Button className="pixel-btn bg-primary text-primary-foreground hover:bg-primary/90 px-6 py-3">
                 <BookOpen className="h-4 w-4 mr-2" />
                 {t('hero.ctaBook') as string}
@@ -104,48 +105,79 @@ const Index = () => {
             </h2>
           </div>
 
-          {/* Featured Experience - Current Role */}
-          <Card className="pixel-card bg-card border-2 mb-8 max-w-3xl mx-auto">
-            <CardContent className="p-6 md:p-8">
-              <div className="flex flex-col md:flex-row md:items-start md:justify-between mb-4">
-                <div>
-                  <h3 className="text-xl font-bold mb-1">{currentRole.role}</h3>
-                  <p className="text-lg text-primary">{currentRole.company}</p>
-                  <p className="text-sm text-muted-foreground mt-1">
-                    {currentRole.location}
-                  </p>
-                </div>
-                <Badge variant="secondary" className="mt-2 md:mt-0 w-fit">
-                  {currentRole.period}
-                </Badge>
-              </div>
-
-              <p className="text-muted-foreground mt-4">{currentRole.description}</p>
-
-              <div className="space-y-3 mt-6">
-                {(currentRole.highlights ?? []).map((achievement, idx) => (
-                  <div key={idx} className="flex items-start gap-3">
-                    <CheckCircle className="h-5 w-5 text-[hsl(142,76%,36%)] mt-0.5 shrink-0" />
-                    <span className="text-muted-foreground">{achievement}</span>
+          {/* Featured Experiences - Dual Current Roles (CTO + CEO) */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8 max-w-6xl mx-auto">
+            {resumeData.currentRoles.map((role, idx) => (
+              <Card key={idx} className="pixel-card bg-card border-2 h-full flex flex-col">
+                <CardContent className="p-6 md:p-8 flex flex-col flex-1">
+                  <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 mb-4">
+                    <div>
+                      <h3 className="text-xl font-bold mb-1">{role.role}</h3>
+                      {role.companyUrl ? (
+                        <a
+                          href={role.companyUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          aria-label={`${role.company} (abre em nova guia)`}
+                          className="inline-flex items-center gap-1.5 text-lg text-primary hover:underline hover:opacity-80 transition-all font-medium group"
+                        >
+                          <span>{role.company}</span>
+                          <ExternalLink className="h-4 w-4 opacity-70 group-hover:opacity-100 transition-opacity shrink-0" />
+                        </a>
+                      ) : (
+                        <p className="text-lg text-primary">{role.company}</p>
+                      )}
+                      <p className="text-sm text-muted-foreground mt-1">
+                        {role.location}
+                      </p>
+                    </div>
+                    <Badge variant="secondary" className="mt-1 sm:mt-0 w-fit shrink-0">
+                      {role.period}
+                    </Badge>
                   </div>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
+
+                  <p className="text-muted-foreground mt-4 leading-relaxed">{role.description}</p>
+
+                  <div className="space-y-3 mt-6">
+                    {(role.highlights ?? []).map((achievement, hIdx) => (
+                      <div key={hIdx} className="flex items-start gap-3">
+                        <CheckCircle className="h-5 w-5 text-[hsl(142,76%,36%)] mt-0.5 shrink-0" />
+                        <span className="text-muted-foreground text-sm leading-relaxed">{achievement}</span>
+                      </div>
+                    ))}
+                  </div>
+
+                  {role.ctaText && role.ctaUrl && (
+                    <div className="mt-auto pt-6 border-t border-border/40">
+                      <a
+                        href={role.ctaUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label={`${role.ctaText} (abre em nova guia)`}
+                        className="inline-flex items-center text-sm font-mono text-primary hover:underline hover:opacity-80 transition-all group font-semibold"
+                      >
+                        <span>{role.ctaText}</span>
+                      </a>
+                    </div>
+                  )}
+                </CardContent>
+              </Card>
+            ))}
+          </div>
 
           {/* Previous Experience Timeline */}
-          <div className="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
-            {resumeData.experiences.slice(1).map((exp, idx) => (
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+            {resumeData.experiences.map((exp, idx) => (
               <Card
                 key={idx}
-                className="pixel-card bg-card hover:border-primary transition-colors"
+                className="pixel-card bg-card hover:border-primary transition-colors flex flex-col justify-between"
               >
-                <CardContent className="p-5">
-                  <Badge variant="outline" className="mb-3 text-xs">
+                <CardContent className="p-5 flex flex-col h-full">
+                  <Badge variant="outline" className="mb-3 text-xs w-fit">
                     {exp.period}
                   </Badge>
-                  <h4 className="font-bold text-sm mb-1">{exp.role}</h4>
-                  <p className="text-xs text-muted-foreground">{exp.company}</p>
+                  <h3 className="font-bold text-sm mb-1">{exp.role}</h3>
+                  <p className="text-xs text-muted-foreground mt-auto">{exp.company}</p>
                 </CardContent>
               </Card>
             ))}
@@ -174,6 +206,7 @@ const Index = () => {
               href={`https://${resumeData.linkedin}`}
               target="_blank"
               rel="noopener noreferrer"
+              aria-label="LinkedIn de Iago Martins (abre em nova guia)"
             >
               <Button variant="outline" className="pixel-btn">
                 <Linkedin className="h-4 w-4 mr-2" />
@@ -195,11 +228,13 @@ const Index = () => {
                   <img
                     src="/capa.png"
                     alt={resumeData.book.title}
+                    width={400}
+                    height={600}
                     className="w-full h-full hover:scale-105 transition-transform duration-500"
                   />
                 </div>
                 <div className="mt-4 text-center">
-                  <p className="pixel-font text-xs text-muted-foreground">por Iago Alves</p>
+                  <p className="pixel-font text-xs text-muted-foreground">por {resumeData.name}</p>
                 </div>
               </div>
             </div>
@@ -225,6 +260,7 @@ const Index = () => {
                 href={resumeData.book.amazonUrl}
                 target="_blank"
                 rel="noopener noreferrer"
+                aria-label={`${t('book.ctaAmazon')} na Amazon (abre em nova guia)`}
               >
                 <Button className="pixel-btn bg-[hsl(24,100%,50%)] text-white hover:bg-[hsl(24,100%,40%)]">
                   <ExternalLink className="h-4 w-4 mr-2" />
@@ -267,7 +303,7 @@ const Index = () => {
                       <IconComponent className="h-6 w-6 text-primary" />
                     </div>
                     <div>
-                      <h4 className="font-bold text-sm mb-1">{tech.name}</h4>
+                      <h3 className="font-bold text-sm mb-1">{tech.name}</h3>
                       <p className="text-xs text-muted-foreground">
                         {tech.description}
                       </p>
@@ -288,7 +324,7 @@ const Index = () => {
               variant="outline"
               className="pixel-border mb-4 px-3 py-1 text-xs font-mono"
             >
-              ERP & Power BI
+              ERP &amp; Power BI
             </Badge>
             <h2 className="text-2xl md:text-3xl font-bold mb-2">
               {t('erp.sectionTitle') as string}
@@ -342,6 +378,7 @@ const Index = () => {
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 max-w-2xl mx-auto mb-12">
             <a
               href={`mailto:${resumeData.email}`}
+              aria-label={`Email para ${resumeData.name}: ${resumeData.email}`}
               className="pixel-card bg-card p-4 hover:border-primary transition-colors group"
             >
               <Mail className="h-5 w-5 mx-auto mb-2 text-muted-foreground group-hover:text-primary" />
@@ -351,6 +388,7 @@ const Index = () => {
               href={`https://${resumeData.linkedin}`}
               target="_blank"
               rel="noopener noreferrer"
+              aria-label={`LinkedIn de ${resumeData.name} (abre em nova guia)`}
               className="pixel-card bg-card p-4 hover:border-primary transition-colors group"
             >
               <Linkedin className="h-5 w-5 mx-auto mb-2 text-muted-foreground group-hover:text-primary" />
@@ -360,6 +398,7 @@ const Index = () => {
               href={`https://${resumeData.github}`}
               target="_blank"
               rel="noopener noreferrer"
+              aria-label={`GitHub de ${resumeData.name} (abre em nova guia)`}
               className="pixel-card bg-card p-4 hover:border-primary transition-colors group"
             >
               <Github className="h-5 w-5 mx-auto mb-2 text-muted-foreground group-hover:text-primary" />
@@ -379,7 +418,7 @@ const Index = () => {
       <footer className="py-8 border-t border-border">
         <div className="container-wide text-center">
           <p className="pixel-font text-xs text-muted-foreground">
-            © 2024 {resumeData.name}. {t('hero.role') as string}
+            © 2026 {resumeData.name}. {t('hero.role') as string}
           </p>
         </div>
       </footer>
