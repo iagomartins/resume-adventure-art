@@ -1,5 +1,12 @@
 User-agent: *
 Allow: /
 
+User-agent: Googlebot
+Allow: /
+
+User-agent: Googlebot-Image
+Allow: /
+
 # Sitemap
+Sitemap: https://iago.techarte.dev/sitemap.xml
 Sitemap: https://iago-martins.vercel.app/sitemap.xml
